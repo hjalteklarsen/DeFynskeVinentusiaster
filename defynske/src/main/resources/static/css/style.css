@@ -1,0 +1,13 @@
+
+/*nav bar placeholder styles*/
+#navbar-placeholder {
+    opacity: 0;
+}
+#navbar-placeholder.loaded {
+    opacity: 1;
+    visibility: visible;
+}
+.navbar { background-color: #212529; }
+
+body { background-color: #f8f9fa; }
+

@@ -1,10 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Ratings | De Fynske Vinentusiaster</title>
+    <link href="/css/style.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-$END$
+<body class="bg-light">
+<div id="navbar-placeholder" class="navbar">
+    <script>
+        // Load navbar synchronously before rendering page content
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "/components/navbar.html", false);
+        xhr.send();
+        document.write(xhr.responseText);
+    </script>
+</div>
+
+
+<main class="container mt-4">
+    <h3 class="fw-bold mb-3">All Ratings</h3>
+
+    <table class="table table-hover bg-white shadow-sm">
+        <thead class="table-dark">
+        <tr>
+            <th>Wine</th>
+            <th>DFV Score</th>
+            <th>Vivino Score</th>
+            <th>Comment</th>
+            <th>Member</th>
+        </tr>
+        </thead>
+        <tbody id="ratingTableBody"></tbody>
+    </table>
+
+    <hr class="my-4">
+    <h5>Add New Rating</h5>
+    <form id="ratingForm" class="row g-2">
+        <div class="col-md-2">
+            <input id="wineId" class="form-control" type="number" placeholder="Wine ID" required>
+        </div>
+        <div class="col-md-2">
+            <input id="dfvScore" class="form-control" type="number" step="0.1" placeholder="DFV score" required>
+        </div>
+        <div class="col-md-2">
+            <input id="vivinoScore" class="form-control" type="number" step="0.1" placeholder="Vivino score" required>
+        </div>
+        <div class="col-md-4">
+            <input id="comment" class="form-control" placeholder="Comment">
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-success w-100" type="submit">Save</button>
+        </div>
+    </form>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    async function loadRatings() {
+        const res = await fetch('/ratings');
+        const ratings = await res.json();
+        const tbody = document.getElementById('ratingTableBody');
+        tbody.innerHTML = ratings.map(r => `
+        <tr>
+          <td>${r.wine?.name || '(unknown)'}</td>
+          <td>${r.dfvScore?.toFixed(1) ?? '-'}</td>
+          <td>${r.vivinoScore?.toFixed(1) ?? '-'}</td>
+          <td>${r.comment || ''}</td>
+          <td>${r.member?.username || ''}</td>
+        </tr>
+      `).join('');
+    }
+
+    document.getElementById('ratingForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const payload = {
+            wineId: parseInt(document.getElementById('wineId').value),
+            dfvScore: parseFloat(document.getElementById('dfvScore').value),
+            vivinoScore: parseFloat(document.getElementById('vivinoScore').value),
+            comment: document.getElementById('comment').value
+        };
+        const res = await fetch('/ratings', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+            await loadRatings();
+            document.getElementById('ratingForm').reset();
+        } else {
+            alert("Failed to save rating.");
+        }
+    });
+
+    loadRatings();
+</script>
+<script src="./js/navbar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

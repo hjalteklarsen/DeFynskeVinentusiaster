@@ -1,4 +1,7 @@
 package org.example.defynske.repo;
 
-public interface MeetingRepo {
+import org.example.defynske.model.Meeting;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MeetingRepo extends JpaRepository<Meeting,Long> {
 }

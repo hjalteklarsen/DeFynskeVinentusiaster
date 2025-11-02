@@ -53,12 +53,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Flyway (for schema versioning) -->
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
-
         <!-- Lombok (optional but nice for entities) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
