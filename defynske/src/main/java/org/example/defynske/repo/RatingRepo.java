@@ -13,4 +13,5 @@ public interface RatingRepo extends JpaRepository<Rating,Long> {
     Optional<Rating> findByMeetingAndWineAndMember(Meeting meeting, Wine wine, Member member);
     List<Rating> findByMeetingIdAndWineId(Long meetingId, Long wineId);
     Optional<Rating> findByMeetingIdAndWineIdAndMemberId(Long meetingId, Long wineId, Long memberId);
+    List<Rating> findByMemberId(Long id);
 }
