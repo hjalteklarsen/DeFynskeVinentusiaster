@@ -14,12 +14,8 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private double vivinoScore;
-
     @Column(nullable = false)
-    private double dfvScore;
-
-    private String comment;
+    private Double dfvScore;
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
@@ -28,4 +24,8 @@ public class Rating {
     @ManyToOne
     @JoinColumn(name = "wine_id", nullable = false)
     private Wine wine;
+
+    @ManyToOne
+    @JoinColumn(name = "meeting_id")
+    private Meeting meeting;
 }

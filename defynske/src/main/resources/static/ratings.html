@@ -1,101 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
-    <meta charset="UTF-8">
-    <title>Ratings | De Fynske Vinentusiaster</title>
-    <link href="/css/style.css" rel="stylesheet"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>🍷 Bedømmelser - De Fynske Vinentusiaster</title>
+
+    <!-- Bootstrap & LiquorStore CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/animate.css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="css/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="css/magnific-popup.css" />
+    <link rel="stylesheet" href="css/flaticon.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/custom.css" />
+
 </head>
-<body class="bg-light">
-<div id="navbar-placeholder" class="navbar">
-    <script>
-        // Load navbar synchronously before rendering page content
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", "/components/navbar.html", false);
-        xhr.send();
-        document.write(xhr.responseText);
-    </script>
+
+<body>
+
+<script src="js/public/components.js"></script>
+
+<!-- Hero -->
+<div class="hero-wrap" style="background-image: url('images/bg_2.png')" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-8 ftco-animate d-flex align-items-end">
+                <div class="text w-100 text-center">
+                    <h1 class="mb-4 custom-quote">Bedømmelser fra klubben</h1>
+                    <p class="text-light">Udforsk hvordan medlemmerne har vurderet de bedste flasker 🍷</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-
-<main class="container mt-4">
-    <h3 class="fw-bold mb-3">All Ratings</h3>
-
-    <table class="table table-hover bg-white shadow-sm">
-        <thead class="table-dark">
-        <tr>
-            <th>Wine</th>
-            <th>DFV Score</th>
-            <th>Vivino Score</th>
-            <th>Comment</th>
-            <th>Member</th>
-        </tr>
-        </thead>
-        <tbody id="ratingTableBody"></tbody>
-    </table>
-
-    <hr class="my-4">
-    <h5>Add New Rating</h5>
-    <form id="ratingForm" class="row g-2">
-        <div class="col-md-2">
-            <input id="wineId" class="form-control" type="number" placeholder="Wine ID" required>
+<!-- Sorting -->
+<section class="ftco-section bg-light py-4">
+    <div class="container text-center">
+        <div class="btn-group" role="group" aria-label="Sort options">
+            <button class="btn btn-outline-dark" id="sort-dfv">Sorter efter DFV-score</button>
+            <button class="btn btn-outline-dark" id="sort-vivino">Sorter efter Vivino-score</button>
+            <button class="btn btn-outline-dark" id="sort-date">Sorter efter dato</button>
         </div>
-        <div class="col-md-2">
-            <input id="dfvScore" class="form-control" type="number" step="0.1" placeholder="DFV score" required>
-        </div>
-        <div class="col-md-2">
-            <input id="vivinoScore" class="form-control" type="number" step="0.1" placeholder="Vivino score" required>
-        </div>
-        <div class="col-md-4">
-            <input id="comment" class="form-control" placeholder="Comment">
-        </div>
-        <div class="col-md-2">
-            <button class="btn btn-success w-100" type="submit">Save</button>
-        </div>
-    </form>
-</main>
+    </div>
+</section>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    async function loadRatings() {
-        const res = await fetch('/ratings');
-        const ratings = await res.json();
-        const tbody = document.getElementById('ratingTableBody');
-        tbody.innerHTML = ratings.map(r => `
-        <tr>
-          <td>${r.wine?.name || '(unknown)'}</td>
-          <td>${r.dfvScore?.toFixed(1) ?? '-'}</td>
-          <td>${r.vivinoScore?.toFixed(1) ?? '-'}</td>
-          <td>${r.comment || ''}</td>
-          <td>${r.member?.username || ''}</td>
-        </tr>
-      `).join('');
-    }
+<!-- Ratings Grid -->
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row" id="ratings-container">
+            <!-- Cards will be inserted here dynamically -->
+        </div>
+    </div>
+</section>
 
-    document.getElementById('ratingForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const payload = {
-            wineId: parseInt(document.getElementById('wineId').value),
-            dfvScore: parseFloat(document.getElementById('dfvScore').value),
-            vivinoScore: parseFloat(document.getElementById('vivinoScore').value),
-            comment: document.getElementById('comment').value
-        };
-        const res = await fetch('/ratings', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(payload)
-        });
-        if (res.ok) {
-            await loadRatings();
-            document.getElementById('ratingForm').reset();
-        } else {
-            alert("Failed to save rating.");
-        }
-    });
 
-    loadRatings();
-</script>
-<script src="./js/navbar.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<div class="modal fade" id="ratingsModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-light">
+                <h5 class="modal-title">Bedømmelser</h5>
+                <button type="button" class="close text-light" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body bg-light" id="ratingsModalBody"></div>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<footer class="ftco-footer bg-dark">
+    <div class="container text-center py-4">
+        <h2 class="logo text-light"><a href="#">🍷 De Fynske <span>Vinentusiaster</span></a></h2>
+        <p class="text-muted">Forenet af kærligheden til vin, smag og fællesskab siden 2020.</p>
+        <ul class="ftco-footer-social list-unstyled mt-3">
+            <li class="d-inline mx-2"><a href="#" class="text-warning"><span class="fa fa-facebook"></span></a></li>
+            <li class="d-inline mx-2"><a href="#" class="text-warning"><span class="fa fa-instagram"></span></a></li>
+        </ul>
+    </div>
+    <div class="container-fluid px-0 py-2 bg-black">
+        <p class="mb-0 text-center" style="color: rgba(255,255,255,.5);">© <script>document.write(new Date().getFullYear());</script> De Fynske Vinentusiaster</p>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/vendor/jquery.min.js"></script>
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="js/public/ratings.js"></script>
+
 </body>
 </html>

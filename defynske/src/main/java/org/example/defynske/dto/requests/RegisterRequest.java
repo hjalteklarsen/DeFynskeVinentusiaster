@@ -1,4 +1,4 @@
-package org.example.defynske.dto;
+package org.example.defynske.dto.requests;
 
 
 import lombok.Getter;

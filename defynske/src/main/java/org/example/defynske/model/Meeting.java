@@ -16,12 +16,10 @@ public class Meeting {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
     private LocalDate date;
     private String description;
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
     private Member host;
-
 }

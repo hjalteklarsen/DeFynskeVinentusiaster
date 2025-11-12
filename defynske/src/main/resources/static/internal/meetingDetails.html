@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>🍷 Mødeoversigt - De Fynske Vinentusiaster</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../css/animate.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/internal.css" />
+
+    <style>
+            /* === Global reset === */
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: #f8f7f4;
+            font-family: 'Spectral', serif;
+            overflow-x: hidden;
+            overflow-y: auto; /* 👈 crucial for sticky to work */
+            color: #000; /* ensure text is black */
+        }
+
+        /* === Meeting Header === */
+        .meeting-header {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 40px 0 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            width: 100%;
+        }
+
+        .meeting-header h1 {
+            color: #c49b63;
+            font-weight: 600;
+            margin: 0;
+        }
+        .meeting-header p {
+            color: #ccc;
+            margin: 0;
+        }
+
+        /* === Ratings Section (independent scroll context) === */
+        .ratings-section {
+            background: #f8f7f4;
+            width: 100%;
+            overflow: visible;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* === Table container === */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: visible;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-top: 2px solid #c49b63;
+        }
+
+        /* === Table layout === */
+        .table {
+            width: 100%;
+            min-width: 1000px;
+            border-collapse: collapse;
+            border-spacing: 0;
+            color: #000; /* 👈 ensures black text */
+        }
+
+        /* === Sticky header === */
+        #ratingsHead th {
+            position: sticky;
+            top: 0;
+            background: #fff;
+            color: #000; /* 👈 visible text */
+            z-index: 5;
+            border-bottom: 2px solid #c49b63;
+            padding: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        /* === Cells === */
+        .table td {
+            padding: 0.75rem;
+            text-align: center;
+            vertical-align: middle;
+            border-bottom: 1px solid #eee;
+            white-space: nowrap;
+            color: #000; /* 👈 visible text */
+        }
+
+        /* === Sticky first two columns (# + Vin) === */
+        #ratingsHead th:first-child,
+        #ratingsBody td:first-child,
+        #ratingsHead th:nth-child(2),
+        #ratingsBody td:nth-child(2) {
+            position: sticky;
+            background: #fff;
+            z-index: 6;
+            color: #000;
+        }
+
+        #ratingsHead th:first-child,
+        #ratingsBody td:first-child {
+            left: 0;
+            min-width: 40px;
+        }
+
+        #ratingsHead th:nth-child(2),
+        #ratingsBody td:nth-child(2) {
+            left: 60px;
+            min-width: 180px;
+            text-align: left;
+        }
+
+        /* === Buttons === */
+        .btn-add, .btn-reveal {
+            background-color: #c49b63;
+            color: #fff;
+            border: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-add:hover, .btn-reveal:hover {
+            background-color: #b18b55;
+            color: #fff;
+        }
+            /* === STICKY FIX: ensure all table parents allow stickiness === */
+            .ftco-section,
+            .container,
+            .row,
+            section,
+            .ratings-section,
+            .table-container {
+                overflow: visible !important;
+                position: static !important;
+                transform: none !important;
+            }
+
+            /* The one that actually scrolls */
+            .table-container {
+                overflow-x: auto !important;
+                overflow-y: visible !important;
+                display: block;
+                background: #fff;
+            }
+
+            /* Now make the sticky header actually stick */
+            #ratingsHead th {
+                position: sticky !important;
+                top: 0; /* adjust to height of your navbar */
+                background: #fff;
+                color: #000;
+                z-index: 10;
+                border-bottom: 2px solid #c49b63;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            }
+
+
+    </style>
+</head>
+
+<body class="internal-page">
+<!-- Navbar -->
+<script src="../js/internal/components.js"></script>
+
+<!-- Meeting Header -->
+<div class="meeting-header">
+    <h1 id="meetingTitle">Aftenens Smagning</h1>
+    <p id="meetingMeta">Dato: – | Vært: –</p>
+</div>
+
+<!-- Action Buttons -->
+<section class="ftco-section bg-light py-4">
+    <div class="container text-center">
+        <button class="btn btn-add btn-lg m-2" id="addWineBtn">
+            <i class="fa fa-plus mr-2"></i>Tilføj vin til mødet
+        </button>
+    </div>
+</section>
+
+<!-- Ratings Table -->
+<section class="ratings-section">
+    <div class="table-container">
+        <table class="table table-striped text-center align-middle">
+            <thead id="ratingsHead" style="position:sticky; top:0;"></thead>
+            <tbody id="ratingsBody"></tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Add Wine Modal -->
+<div class="modal fade" id="addWineModal" tabindex="-1" role="dialog" aria-labelledby="addWineLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-light">
+                <h5 class="modal-title" id="addWineLabel">Tilføj vin til mødet</h5>
+                <button type="button" class="close text-light" data-dismiss="modal">&times;</button>
+            </div>
+            <form id="addWineForm">
+                <div class="modal-body bg-dark text-light">
+                    <div class="form-group">
+                        <label for="wineName">Vælg vin</label>
+                        <input type="text" id="wineName" class="form-control" placeholder="Indtast vinens navn" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Land</label>
+                        <input type="text" id="country" class="form-control" placeholder="Italien / Frankrig / ..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Type</label>
+                        <select id="category" class="form-control" required>
+                            <option value="Rødvin">Rødvin</option>
+                            <option value="Hvidvin">Hvidvin</option>
+                            <option value="Rosé">Rosé</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="broughtBy">Bragt af</label>
+                        <select id="broughtBy" class="form-control" required>
+                            <option value="">-- Vælg medlem --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sequenceNo">Rækkefølge (nummer)</label>
+                        <input type="number" id="sequenceNo" class="form-control" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="vivinoRating">Vivino-rating</label>
+                        <input type="number" id="vivinoRating" class="form-control" min="1" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="vivinoUrl">Vivino URL</label>
+                        <input type="url" id="vivinoUrl" class="form-control" placeholder="https://www.vivino.com/...">
+                    </div>
+                </div>
+                <div class="modal-footer bg-dark">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Annuller</button>
+                    <button type="submit" class="btn btn-add">Gem vin</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Scripts -->
+<script src="../js/vendor/jquery.min.js"></script>
+<script src="../js/vendor/bootstrap.min.js"></script>
+<script src="../js/vendor/main.js"></script>
+<script src="../js/internal/meetingDetails.js"></script>
+</body>
+</html>

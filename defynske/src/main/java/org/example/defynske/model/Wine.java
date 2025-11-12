@@ -18,6 +18,9 @@ public class Wine {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private String category;
+
     private String region;
     private int year;
     private String grapeVariety;
@@ -25,4 +28,6 @@ public class Wine {
 
     private String externalId;
     private String source;
+    private String imageUrl;
+    private Double vivinoScore;
 }

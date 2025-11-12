@@ -1,6 +1,5 @@
 package org.example.defynske.controller;
 
-
 import lombok.RequiredArgsConstructor;
 import org.example.defynske.model.Wine;
 import org.example.defynske.repo.WineRepo;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/wines")
+@RequestMapping("/api/wines")
 @RequiredArgsConstructor
 public class WineController {
 

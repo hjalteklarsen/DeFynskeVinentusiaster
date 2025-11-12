@@ -1,11 +1,12 @@
 package org.example.defynske.config;
 
-
 import lombok.AllArgsConstructor;
 import org.example.defynske.repo.MemberRepo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,19 +23,23 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests((auth) -> auth
-                    .requestMatchers("/", "/auth/**", "/css/**", "/js/**", "/images/**") .permitAll()
-                .requestMatchers("/wines/**", "/ratings/**").permitAll()
-                    //member only
-                    .requestMatchers("/wines/**", "/ratings/**").authenticated()
-                .anyRequest().permitAll()
-            )
-                .formLogin(form -> form
-                        .loginPage("/login").permitAll()
-                        .defaultSuccessUrl("/auth/login-success", true)
-                )
-                .logout(logout -> logout.permitAll());
+                .csrf(AbstractHttpConfigurer::disable)
+                .formLogin(AbstractHttpConfigurer::disable)   // disable HTML form login
+                .logout(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/",
+                                "/*.html",
+                                "/auth/**",
+                                "/api/**",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**",
+                                "/components/**").permitAll()
+                        .requestMatchers(
+                                "/internal/**").authenticated()
+                        .anyRequest().authenticated()
+                );
         return http.build();
     }
 
@@ -51,13 +56,15 @@ public class SecurityConfig {
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder);
-        return authProvider;
-
+    public DaoAuthenticationProvider authenticationProvider(UserDetailsService uds, PasswordEncoder encoder) {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(uds);
+        provider.setPasswordEncoder(encoder);
+        return provider;
     }
 
-
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
 }

@@ -1,0 +1,91 @@
+/* --- Custom Hero Quote --- */
+.custom-quote {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.3;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* ensure LiquorStore overlay doesn't hide text before animation */
+.fade-in-fast {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* gradually growing "skåål" */
+.cheer-1 span, .cheer-2 span {
+    display: inline-block;
+    transition: transform 0.3s ease, color 0.3s ease;
+    color: #fff;
+}
+
+/* growing */
+.cheer-1 span:nth-child(1) { font-size: 0.8em; }
+.cheer-1 span:nth-child(2) { font-size: 1em; }
+.cheer-1 span:nth-child(3) { font-size: 1.2em; }
+.cheer-1 span:nth-child(4) { font-size: 1.4em; }
+.cheer-1 span:nth-child(5) { font-size: 1.6em; color: #f4d03f; }
+.cheer-1 span:nth-child(6) { font-size: 1.8em; color: #f4d03f; }
+
+/* shrinking */
+.cheer-2 span:nth-child(1) { font-size: 1.8em; color: #f4d03f; }
+.cheer-2 span:nth-child(2) { font-size: 1.6em; }
+.cheer-2 span:nth-child(3) { font-size: 1.4em; }
+.cheer-2 span:nth-child(4) { font-size: 1.2em; }
+.cheer-2 span:nth-child(5) { font-size: 1em; }
+.cheer-2 span:nth-child(6) { font-size: 0.8em; }
+
+/* optional fun hover */
+.cheer-1:hover span, .cheer-2:hover span {
+    transform: rotate(-5deg) scale(1.15);
+    color: #ffeb7a;
+}
+
+/* --- Force hero text above everything --- */
+.hero-wrap {
+    position: relative !important;
+}
+
+.hero-wrap .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1 !important; /* overlay under text */
+}
+
+.hero-wrap .container,
+.hero-wrap .slider-text,
+.hero-wrap .text {
+    position: relative !important;
+    z-index: 3 !important; /* higher than overlay */
+}
+
+/* Optional: slightly lighter overlay for contrast */
+.hero-wrap .overlay {
+    background: rgba(0, 0, 0, 0.4) !important;
+}
+
+.hero-wrap .custom-quote {
+    color: #fff !important;
+    z-index: 5;
+    position: relative;
+}
+
+/* Force hero headline to be visible immediately */
+.hero-wrap .ftco-animate {
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+.ftco-animate {
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+
+
