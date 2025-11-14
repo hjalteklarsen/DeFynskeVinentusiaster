@@ -12,21 +12,4 @@ public class DefynskeApplication {
     public static void main(String[] args) {
         SpringApplication.run(DefynskeApplication.class, args);
     }
-
-    @Bean
-    CommandLineRunner test(MemberRepo repo) {
-        return args -> {
-            if (repo.count() == 0) {
-                Member m = Member.builder()
-                        .username("Test User")
-                        .passwordHash("1234")
-                        .role("Member")
-                        .build();
-                repo.save(m);
-                System.out.println("✅ Member saved to DB!");
-            } else {
-                System.out.println("Members in DB: " + repo.count());
-            }
-        };
-    }
 }
