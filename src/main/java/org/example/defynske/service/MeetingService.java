@@ -132,7 +132,6 @@ public class MeetingService {
                 .map(Member::getDisplayName)
                 .toList();
 
-        // Build the meeting-level response
         return MeetingDetailsResponse.fromEntity(meeting, members, wineResponses);
     }
 }
