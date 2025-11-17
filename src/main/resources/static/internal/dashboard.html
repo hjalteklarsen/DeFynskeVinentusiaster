@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>🍷 Møder - De Fynske Vinentusiaster</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../css/animate.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/custom.css" />
+
+    <style>
+        .hero-wrap {
+            background-image: url('../images/bg_2.png');
+            background-size: cover;
+            background-position: center;
+            height: 200px;
+            position: relative;
+        }
+        .hero-wrap::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+        }
+        .hero-wrap .text {
+            position: relative;
+            z-index: 2;
+        }
+
+        .meeting-card h4 {
+            color: #c49b63;
+        }
+
+        .add-meeting {
+            border: 2px dashed rgba(255,255,255,0.3);
+            color: #aaa;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .add-meeting:hover {
+            border-color: #c49b63;
+            color: #c49b63;
+        }
+
+        .modal-content {
+            background: #1a1a1a;
+            color: #fff;
+            border: 1px solid #c49b63;
+        }
+        .modal-header {
+            border-bottom: 1px solid #c49b63;
+        }
+        .form-control, .btn {
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+<script src="../js/internal/components.js"></script>
+
+<!-- Hero -->
+<div class="hero-wrap d-flex align-items-center justify-content-center text-center text-light">
+    <div class="overlay"></div>
+    <div class="text">
+        <h1 class="mb-2">Møder & Smagninger</h1>
+        <p class="text-muted">Overblik over alle afholdte og kommende aftener</p>
+    </div>
+</div>
+
+<!-- Meetings Grid -->
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col text-center">
+                <button class="btn btn-warning btn-lg" data-toggle="modal" data-target="#createMeetingModal">
+                    <i class="fa fa-plus mr-2"></i>Opret nyt møde
+                </button>
+            </div>
+        </div>
+
+        <div class="row" id="meetings-container">
+            <!-- Meeting cards dynamically generated -->
+        </div>
+    </div>
+</section>
+
+<!-- Create Meeting Modal -->
+<div class="modal fade" id="createMeetingModal" tabindex="-1" role="dialog" aria-labelledby="createMeetingLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createMeetingLabel">Opret nyt møde</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <form id="meetingForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="description">Titel / Beskrivelse</label>
+                        <input type="text" id="description" class="form-control" required />
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="date">Dato</label>
+                            <input type="date" id="date" class="form-control" required />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="location">Lokation</label>
+                            <input type="text" id="location" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="price">Pris (DKK)</label>
+                        <input type="number" id="price" class="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Annuller</button>
+                    <button type="submit" class="btn btn-warning">Gem møde</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="ftco-footer bg-dark text-center py-4">
+    <h2 class="logo text-light"><a href="#">🍷 De Fynske <span>Vinentusiaster</span></a></h2>
+    <p class="text-muted">Forenet af kærligheden til vin, smag og fællesskab siden 2020.</p>
+</footer>
+
+<!-- Scripts -->
+<script src="../js/vendor/jquery.min.js"></script>
+<script src="../js/vendor/bootstrap.min.js"></script>
+<script src="../js/internal/meetings.js"></script>
+</body>
+</html>

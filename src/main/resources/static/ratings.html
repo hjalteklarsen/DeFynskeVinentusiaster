@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>🍷 Bedømmelser - De Fynske Vinentusiaster</title>
+
+    <!-- Bootstrap & LiquorStore CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/animate.css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="css/owl.theme.default.min.css" />
+    <link rel="stylesheet" href="css/magnific-popup.css" />
+    <link rel="stylesheet" href="css/flaticon.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/custom.css" />
+
+</head>
+
+<body>
+
+<script src="js/public/components.js"></script>
+
+<!-- Hero -->
+<div class="hero-wrap" style="background-image: url('images/bg_2.png')" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-8 ftco-animate d-flex align-items-end">
+                <div class="text w-100 text-center">
+                    <h1 class="mb-4 custom-quote">Bedømmelser fra klubben</h1>
+                    <p class="text-light">Udforsk hvordan medlemmerne har vurderet de bedste flasker 🍷</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sorting -->
+<section class="ftco-section bg-light py-4">
+    <div class="container text-center">
+        <div class="btn-group" role="group" aria-label="Sort options">
+            <button class="btn btn-outline-dark" id="sort-dfv">Sorter efter DFV-score</button>
+            <button class="btn btn-outline-dark" id="sort-vivino">Sorter efter Vivino-score</button>
+            <button class="btn btn-outline-dark" id="sort-date">Sorter efter dato</button>
+        </div>
+    </div>
+</section>
+
+<!-- Ratings Grid -->
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row" id="ratings-container">
+            <!-- Cards will be inserted here dynamically -->
+        </div>
+    </div>
+</section>
+
+
+<div class="modal fade" id="ratingsModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-light">
+                <h5 class="modal-title">Bedømmelser</h5>
+                <button type="button" class="close text-light" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body bg-light" id="ratingsModalBody"></div>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<footer class="ftco-footer bg-dark">
+    <div class="container text-center py-4">
+        <h2 class="logo text-light"><a href="#">🍷 De Fynske <span>Vinentusiaster</span></a></h2>
+        <p class="text-muted">Forenet af kærligheden til vin, smag og fællesskab siden 2020.</p>
+        <ul class="ftco-footer-social list-unstyled mt-3">
+            <li class="d-inline mx-2"><a href="#" class="text-warning"><span class="fa fa-facebook"></span></a></li>
+            <li class="d-inline mx-2"><a href="#" class="text-warning"><span class="fa fa-instagram"></span></a></li>
+        </ul>
+    </div>
+    <div class="container-fluid px-0 py-2 bg-black">
+        <p class="mb-0 text-center" style="color: rgba(255,255,255,.5);">© <script>document.write(new Date().getFullYear());</script> De Fynske Vinentusiaster</p>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/vendor/jquery.min.js"></script>
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="js/public/ratings.js"></script>
+
+</body>
+</html>

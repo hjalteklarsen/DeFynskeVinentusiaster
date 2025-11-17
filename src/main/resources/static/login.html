@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>🔐 Login - De Fynske Vinentusiaster</title>
+
+    <!-- Fonts & Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/custom.css" />
+
+    <style>
+        /* --- LOGIN PAGE CUSTOM STYLE --- */
+        body {
+            background-color: #0d0d0d;
+            overflow-x: hidden;
+        }
+
+
+        .hero-wrap .overlay {
+            background: rgba(0, 0, 0, 0.55);
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+        }
+
+        .hero-wrap h1 {
+            position: relative;
+            font-family: "Spectral", serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            margin: 0;
+        }
+
+        /* Pull form upward */
+        .login-section {
+            margin-top: -650px;
+            position: relative;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.97);
+            border: none;
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .login-card:hover {
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
+            transform: translateY(-3px);
+        }
+
+        .login-card input {
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            padding: 0.75rem;
+        }
+
+        .login-card input:focus {
+            border-color: #b98b59;
+            box-shadow: 0 0 5px rgba(185, 139, 89, 0.4);
+        }
+
+        .login-card button {
+            background: #b98b59;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem;
+            width: 100%;
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+
+        .login-card button:hover {
+            background: #a87b4d;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+
+<body>
+<script src="js/public/components.js"></script>
+
+<!-- Hero -->
+<div class="hero-wrap" style="background-image: url('images/bg_2.png')" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container d-flex align-items-center justify-content-center" style="z-index:2;">
+        <h1 class="animate__animated animate__fadeInDown">Log ind på medlemssystemet</h1>
+    </div>
+</div>
+
+<!-- Login Form -->
+<section class="ftco-section login-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="login-card animate__animated animate__fadeInUp">
+                    <form id="loginForm">
+                        <div class="form-group mb-3">
+                            <label for="username" class="form-label">Brugernavn</label>
+                            <input type="text" id="username" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="password" class="form-label">Adgangskode</label>
+                            <input type="password" id="password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-dark">Log ind</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="ftco-footer bg-dark text-center py-4 text-light">
+    <p>© <script>document.write(new Date().getFullYear());</script> De Fynske Vinentusiaster</p>
+</footer>
+
+<script src="js/vendor/jquery.min.js"></script>
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="js/public/login.js"></script>
+</body>
+</html>
