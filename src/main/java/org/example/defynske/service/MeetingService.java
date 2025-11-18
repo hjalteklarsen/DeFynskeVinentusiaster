@@ -55,8 +55,7 @@ public class MeetingService {
                 .orElseThrow(() -> new IllegalArgumentException("Member not found"));
 
         Wine wine;
-
-        // 👇 If wineId exists, use it — otherwise create a new wine
+        
         if (req.getWineId() != null) {
             wine = wineRepo.findById(req.getWineId())
                     .orElseThrow(() -> new IllegalArgumentException("Wine not found"));
