@@ -3,7 +3,7 @@ services:
     image: ghcr.io/hjalteklarsen/defynske:latest
     container_name: defynske-app
     ports:
-      - "127.0.0.1:8080:8080"
+      - "8080:8080"
     environment:
       - SPRING_DATASOURCE_URL=${DB_URL}
       - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
