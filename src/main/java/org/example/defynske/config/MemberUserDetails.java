@@ -15,7 +15,7 @@ public class MemberUserDetails implements UserDetails {
     public MemberUserDetails(Member member) {
         this.member = member;
     }
-    //meember
+    //member
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + member.getRole()));
