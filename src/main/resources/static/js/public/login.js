@@ -3,9 +3,12 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
+    const API_BASE_URL = location.hostname === "localhost"
+        ? "http://localhost:8080"
+        : "http://157.180.23.204:8080";
 
     try {
-        const res = await fetch("http://localhost:8080/auth/login", {
+        const res = await fetch(`${API_BASE_URL}/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password }),

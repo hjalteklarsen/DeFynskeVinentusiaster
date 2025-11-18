@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(initRatings, 200); // wait for components to load
 });
 
+const API_BASE_URL = location.hostname === "localhost"
+    ? "http://localhost:8080"
+    : "http://157.180.23.204:8080";
+
 async function initRatings() {
     const container = document.getElementById("ratings-container");
     if (!container) return console.error("❌ No #ratings-container found");
@@ -14,7 +18,7 @@ async function initRatings() {
 
     async function loadRatings() {
         try {
-            const res = await fetch("http://localhost:8080/api/ratings");
+            const res = await fetch(`${API_BASE_URL}/api/ratings`);
             if (!res.ok) throw new Error("Failed to fetch ratings");
             ratings = await res.json();
             console.log("✅ Ratings fetched:", ratings);
