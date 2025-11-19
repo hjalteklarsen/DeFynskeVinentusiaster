@@ -15,5 +15,4 @@ public class GlobalErrorExceptionHandler {
     public Map<String, String> handleIllegalArgumentException(IllegalArgumentException ex) {
         return Map.of("error", ex.getMessage());
     }
-
 }

@@ -27,14 +27,6 @@ public class MeetingWineResponse {
     private Double dfv;
 
     public static MeetingWineResponse fromEntity(MeetingWine mW) {
-        System.out.println("DEBUG → MW ID: " + mW.getId());
-        System.out.println("DEBUG → AddedBy: " + mW.getAddedBy());
-        if (mW.getAddedBy() != null) {
-            System.out.println("DEBUG → AddedBy.displayName: " + mW.getAddedBy().getDisplayName());
-            System.out.println("DEBUG → AddedBy.username: " + mW.getAddedBy().getUsername());
-        } else {
-            System.out.println("DEBUG → AddedBy is NULL");
-        }
 
         return MeetingWineResponse.builder()
                 .id(mW.getId())

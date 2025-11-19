@@ -21,11 +21,9 @@ public class WineRecommenderService {
     private final OpenAiService openAiService;
     private static final ObjectMapper mapper = new ObjectMapper();
 
-    // === INTERNAL RECOMMENDER ===
     public Map<String, Object> recommendInternal(Long memberId, String userPrompt) {
         List<Rating> allRatings = ratingRepo.findAll();
 
-        // Group ratings per member
         Map<Long, Map<Long, Double>> memberRatings = allRatings.stream()
                 .collect(Collectors.groupingBy(r -> r.getMember().getId(),
                         Collectors.toMap(r -> r.getWine().getId(), Rating::getDfvScore)));
@@ -35,7 +33,6 @@ public class WineRecommenderService {
             return Map.of("message", "Ingen ratings fundet. Prøv at bedømme et par vine først.");
         }
 
-        // Collaborative filtering
         Map<Long, Double> recs = new HashMap<>();
         for (var entry : memberRatings.entrySet()) {
             if (entry.getKey().equals(memberId)) continue;
@@ -55,7 +52,6 @@ public class WineRecommenderService {
 
         List<Wine> candidates = wineRepo.findAllById(topWineIds);
 
-        // === AI PROMPT ===
         String system = """
         You are a poetic sommelier for a Danish wine club 'De Fynske Vinentusiaster'.
         Every answer must begin with: "I druens rige er vi alle lige."
@@ -88,7 +84,6 @@ public class WineRecommenderService {
         }
     }
 
-    // === EXTERNAL RECOMMENDER ===
     public Map<String, Object> recommendExternal(Long memberId, String userPrompt) {
         List<Rating> ratings = ratingRepo.findByMemberId(memberId);
         List<String> likedWineNames = ratings.stream()
@@ -102,7 +97,7 @@ public class WineRecommenderService {
         Every message must begin with: "I druens rige er vi alle lige."
         Your tone is warm, poetic, and passionate about wine.
         It has to be in Danish.
-        Announce what you base the recommendations on.
+        Announce which wines (from the users liked wines) you base the recommendations on.
         Suggest 3 wines (not from the provided list) that would delight the member based on their preferences and prompt.
         For each, include:
         - Name

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class RatingRequest {
     private Long wineId;
     private Long meetingId;
-    private Long memberId; // optional
-    private String memberName; // optional
+    private Long memberId;
+    private String memberName;
     private Double dfvScore;
 }

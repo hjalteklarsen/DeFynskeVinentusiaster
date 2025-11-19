@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MeetingWineRequest {
-    private Long wineId;          // optional existing wine
-    private String wineName;      // optional new wine
-    private String country;       // new
-    private String category;      // new (Rødvin / Hvidvin / Rosé)
+    private Long wineId;
+    private String wineName;
+    private String country;
+    private String category;
     private Integer sequenceNo;
     private String notes;
     private String vivinoUrl;

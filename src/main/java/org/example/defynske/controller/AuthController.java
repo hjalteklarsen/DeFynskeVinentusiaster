@@ -48,7 +48,6 @@ public class AuthController {
                     new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
             );
 
-            // ✅ Store authentication in session
             SecurityContextHolder.getContext().setAuthentication(auth);
             httpRequest.getSession(true).setAttribute(
                     HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,

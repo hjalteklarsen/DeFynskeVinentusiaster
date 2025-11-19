@@ -55,7 +55,7 @@ public class MeetingService {
                 .orElseThrow(() -> new IllegalArgumentException("Member not found"));
 
         Wine wine;
-        
+
         if (req.getWineId() != null) {
             wine = wineRepo.findById(req.getWineId())
                     .orElseThrow(() -> new IllegalArgumentException("Wine not found"));
@@ -88,7 +88,6 @@ public class MeetingService {
 
         List<MeetingWine> meetingWines = meetingWineRepo.findByMeetingIdOrderBySequenceNoAsc(meetingId);
 
-        // Map wines -> DTOs
         List<MeetingWineResponse> wineResponses = meetingWines.stream()
                 .map(mw -> {
                     // Get all ratings for this wine + meeting
@@ -109,7 +108,6 @@ public class MeetingService {
                             .average()
                             .orElse(0.0);
 
-                    // Build the DTO with ratings + dfv
                     return MeetingWineResponse.builder()
                             .id(mw.getId())
                             .wineId(mw.getWine().getId())
