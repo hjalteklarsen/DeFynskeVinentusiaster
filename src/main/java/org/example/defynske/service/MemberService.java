@@ -14,6 +14,7 @@ public class MemberService {
     private final MemberRepo memberRepo;
     private final PasswordEncoder passwordEncoder;
 
+    //plz
     public Member register(String username, String displayName, String rawPassword) {
         if (memberRepo.findByUsername(username).isPresent()) {
             throw new RuntimeException("Username already exists: " + username);
