@@ -30,13 +30,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         e.preventDefault();
 
         const meetingId = new URLSearchParams(window.location.search).get("id");
+        const rawVivino = document.getElementById("vivinoRating").value;
         const payload = {
             wineName: document.getElementById("wineName").value,
             country: document.getElementById("country").value,
             category: document.getElementById("category").value,
             addedById: parseInt(document.getElementById("broughtBy").value),
             sequenceNo: parseInt(document.getElementById("sequenceNo").value),
-            vivinoScore: parseFloat(document.getElementById("vivinoRating").value),
+            vivinoScore: rawVivino === "" ? null : parseFloat(rawVivino),
             vivinoUrl: document.getElementById("vivinoUrl").value,
         };
 
