@@ -66,7 +66,7 @@ public class AuthController {
         }
     }
 
-
+//beep
     @GetMapping("/login-success")
     public String loginSuccess() {
         return "Login successful!";
