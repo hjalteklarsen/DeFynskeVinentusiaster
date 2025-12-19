@@ -37,9 +37,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             category: document.getElementById("category").value,
             addedById: parseInt(document.getElementById("broughtBy").value),
             sequenceNo: parseInt(document.getElementById("sequenceNo").value),
-            vivinoScore: rawVivino === "" ? null : parseFloat(rawVivino),
-            vivinoUrl: document.getElementById("vivinoUrl").value,
-        };
+            vivinoScore: parseFloat(document.getElementById("vivinoRating").value),
+            vivinoUrl: document.getElementById("vivinoUrl").value};
 
         try {
             const res = await fetch(`/internal/meeting/${meetingId}/wines`, {
